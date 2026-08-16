@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Three Robots on Mars — Curiosity, Perseverance, Ingenuity</title>
+  <meta name="description" content="Stay curious. Keep going. Be clever. Meet the three robots exploring the red planet." />
+  
+  <!-- Favicons -->
+  <link rel="icon" href="./favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./icon-32x32.png" />
+  <link rel="apple-touch-icon" href="./apple-icon.png" />
+
+  <!-- Fonts: Instrument Serif, Inter, & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* CSS Variables & Design System */
+    :root {
+      --bg-color: #0f0a08;
+      --card-bg: rgba(26, 18, 14, 0.7);
+      --card-border: rgba(240, 220, 210, 0.1);
+      --text-main: #f5ebe6;
+      --text-muted: #a3958e;
+      --primary: #e05a2b;
+      --primary-glow: rgba(224, 90, 43, 0.35);
+      --primary-hover: #ff6b35;
+      
+      --font-serif: 'Instrument Serif', Georgia, serif;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Container Utility */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 2rem;
+      }
+    }
+
+    /* Site Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      transition: background-color 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    header.scrolled {
+      background-color: rgba(15, 10, 8, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--card-border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .brand-dot-container {
+      position: relative;
+      display: flex;
+      width: 10px;
+      height: 10px;
+    }
+
+    .brand-dot-ping {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: var(--primary);
+      opacity: 0.65;
+      animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    .brand-dot {
+      position: relative;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--primary);
+    }
+
+    @keyframes ping {
+      75%, 100% {
+        transform: scale(2.2);
+        opacity: 0;
+      }
+    }
+
+    nav {
+      display: none;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      nav {
+        display: flex;
+      }
+    }
+
+    nav a {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+
+    nav a:hover {
+      color: var(--text-main);
+    }
+
+    .btn-status {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      border: 1px solid var(--card-border);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-main);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-status:hover {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+
+    .hero-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: -10;
+    }
+
+    .hero-backdrop img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg-color) 0%, rgba(15, 10, 8, 0.65) 50%, rgba(15, 10, 8, 0.3) 100%);
+    }
+
+    .hero-grain {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 3px 3px;
+      opacity: 0.4;
+    }
+
+    .hero-content {
+      padding-top: 10rem;
+      padding-bottom: 4rem;
+    }
+
+    .hero-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+
+      animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(3.2rem, 9vw, 8.5rem);
+      font-weight: 400;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      text-shadow: 0 0 40px var(--primary-glow);
+      max-width: 1100px;
+      margin-bottom: 2.5rem;
+
+      animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+    }
+
+    .hero-bottom-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 2rem;
+      animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+    }
+
+    @media (min-width: 768px) {
+      .hero-bottom-bar {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+    }
+
+    .hero-desc {
+      max-width: 580px;
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .hero-mantras {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-style: italic;
+    }
+
+    .hero-mantras span.highlight {
+      color: var(--primary);
+    }
+
+    .scroll-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding-bottom: 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+    }
+
+    .scroll-line {
+      width: 40px;
+      height: 1px;
+      background-color: var(--card-border);
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Marquee Section */
+    .marquee-section {
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      background-color: rgba(26, 18, 14, 0.3);
+      padding: 1.75rem 0;
+      overflow: hidden;
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 32s linear infinite;
+    }
+
+    .marquee-group {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      padding-right: 2.5rem;
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .marquee-text {
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    .marquee-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* Robots Section */
+    .robots-section {
+      padding: 6rem 0;
+    }
+
+    @media (min-width: 768px) {
+      .robots-section {
+        padding: 8rem 0;
+      }
+    }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .section-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      max-width: 680px;
+      margin-bottom: 3.5rem;
+    }
+
+    .robot-article {
+      border-top: 1px solid var(--card-border);
+      padding: 4rem 0;
+      scroll-margin-top: 6rem;
+    }
+
+    @media (min-width: 768px) {
+      .robot-article {
+        padding: 6rem 0;
+      }
+    }
+
+    .robot-grid {
+      display: grid;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .robot-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+      }
+    }
+
+    .robot-image-box {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border-radius: 1rem;
+      border: 1px solid var(--card-border);
+      background-color: var(--card-bg);
+    }
+
+    .robot-image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .robot-image-box:hover img {
+      transform: scale(1.05);
+    }
+
+    .robot-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      border-radius: 9999px;
+      background-color: rgba(15, 10, 8, 0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 0.35rem 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-main);
+    }
+
+    .robot-index {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+    }
+
+    .robot-index-num {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      color: var(--primary);
+    }
+
+    .robot-index-line {
+      flex: 1;
+      height: 1px;
+      background-color: var(--card-border);
+    }
+
+    .robot-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 400;
+      margin-top: 1.25rem;
+    }
+
+    .robot-mantra {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--primary);
+      margin-top: 0.5rem;
+    }
+
+    .robot-desc {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      max-width: 520px;
+    }
+
+    .robot-stats {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      border-radius: 0.75rem;
+      border: 1px solid var(--card-border);
+      background-color: var(--card-border);
+      overflow: hidden;
+    }
+
+    @media (min-width: 640px) {
+      .robot-stats {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .stat-card {
+      background-color: var(--card-bg);
+      padding: 1rem;
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+    }
+
+    .stat-val {
+      margin-top: 0.35rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    /* Mission Section */
+    .mission-section {
+      border-top: 1px solid var(--card-border);
+      background-color: rgba(26, 18, 14, 0.3);
+      padding: 6rem 0;
+      scroll-margin-top: 6rem;
+    }
+
+    @media (min-width: 768px) {
+      .mission-section {
+        padding: 8rem 0;
+      }
+    }
+
+    .fleet-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      border-radius: 1rem;
+      border: 1px solid var(--card-border);
+      background-color: var(--card-border);
+      overflow: hidden;
+      margin-top: 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .fleet-stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .fleet-stat-card {
+      background-color: var(--card-bg);
+      padding: 1.75rem 1.5rem;
+    }
+
+    .fleet-stat-value {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 5vw, 3.75rem);
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .fleet-stat-label {
+      margin-top: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+    }
+
+    /* Timeline */
+    .timeline-grid {
+      display: grid;
+      gap: 1px;
+      border-radius: 1rem;
+      border: 1px solid var(--card-border);
+      background-color: var(--card-border);
+      overflow: hidden;
+      margin-top: 4rem;
+    }
+
+    @media (min-width: 768px) {
+      .timeline-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .timeline-card {
+      background-color: var(--card-bg);
+      padding: 1.75rem 1.5rem;
+    }
+
+    .timeline-year {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      color: var(--primary);
+    }
+
+    .timeline-title {
+      margin-top: 1rem;
+      font-size: 1.125rem;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .timeline-text {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    /* Footer Section */
+    footer {
+      border-top: 1px solid var(--card-border);
+    }
+
+    .footer-quote-box {
+      padding: 6rem 0;
+    }
+
+    @media (min-width: 768px) {
+      .footer-quote-box {
+        padding: 8rem 0;
+      }
+    }
+
+    .footer-takeaway {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--primary);
+    }
+
+    .footer-quote {
+      margin-top: 2rem;
+      max-width: 900px;
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 5vw, 3.75rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: var(--text-main);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--card-border);
+      padding: 2rem 0;
+    }
+
+    .footer-bottom-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .footer-bottom-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-nav a {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+
+    .footer-nav a:hover {
+      color: var(--text-main);
+    }
+
+    .footer-tribute {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+    }
+
+    /* Fade-in scroll animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="#top" class="brand">
+          <span class="brand-dot-container">
+            <span class="brand-dot-ping"></span>
+            <span class="brand-dot"></span>
+          </span>
+          <span>Mars / Fleet</span>
+        </a>
+
+        <nav>
+          <a href="#curiosity">Curiosity</a>
+          <a href="#perseverance">Perseverance</a>
+          <a href="#ingenuity">Ingenuity</a>
+          <a href="#mission">Mission</a>
+        </nav>
+
+        <a href="#mission" class="btn-status">Live Status</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="top" class="hero-section">
+    <div class="hero-backdrop">
+      <img src="./mars-hero.png" alt="Panorama of the Martian surface at golden hour" />
+      <div class="hero-overlay"></div>
+      <div class="hero-grain"></div>
+    </div>
+
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-tag">Three robots · One red planet</p>
+        <h1 class="hero-title">Curiosity. Perseverance. Ingenuity.</h1>
+
+        <div class="hero-bottom-bar">
+          <p class="hero-desc">
+            Millions of miles from home, three machines keep exploring the frontier of the possible — each carrying a single idea forward.
+          </p>
+          <div class="hero-mantras">
+            <span>Stay curious.</span>
+            <span class="highlight">Keep going.</span>
+            <span>Be clever.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-indicator">
+        <span class="scroll-line"></span>
+        <span>Scroll to explore the fleet</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee Ticker -->
+  <section class="marquee-section" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-group">
+        <div class="marquee-item"><span class="marquee-text">Stay curious</span><span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span class="marquee-text">Keep going</span><span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span class="marquee-text">Be clever</span><span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span class="marquee-text">Stay curious</span><span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span class="marquee-text">Keep going</span><span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span class="marquee-text">Be clever</span><span class="marquee-dot"></span></div>
+      </div>
+      <div class="marquee-group">
+        <div class="marquee-item"><span class="marquee-text">Stay curious</span><span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span class="marquee-text">Keep going</span><span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span class="marquee-text">Be clever</span><span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span class="marquee-text">Stay curious</span><span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span class="marquee-text">Keep going</span><span class="marquee-dot"></span></div>
+        <div class="marquee-item"><span class="marquee-text">Be clever</span><span class="marquee-dot"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Robots Section -->
+  <section class="robots-section">
+    <div class="container">
+      <div class="fade-up">
+        <p class="section-tag">Meet the fleet</p>
+        <h2 class="section-heading">Three machines, three ideas, one relentless mission.</h2>
+      </div>
+
+      <!-- Robot 01: Curiosity -->
+      <article id="curiosity" class="robot-article fade-up">
+        <div class="robot-grid">
+          <div class="robot-image-box">
+            <img src="./curiosity.png" alt="The Curiosity rover on Mars" loading="lazy" />
+            <span class="robot-badge">Rover · Car-sized laboratory</span>
+          </div>
+          <div>
+            <div class="robot-index">
+              <span class="robot-index-num">01</span>
+              <span class="robot-index-line"></span>
+            </div>
+            <h2 class="robot-title">Curiosity</h2>
+            <p class="robot-mantra">Stay curious.</p>
+            <p class="robot-desc">
+              A roving laboratory the size of a car, Curiosity climbs the slopes of Gale Crater sampling rock and soil to ask a single question: could Mars once have supported life? Every layer it drills is a page of the planet's history.
+            </p>
+            <div class="robot-stats">
+              <div class="stat-card">
+                <div class="stat-label">Landed</div>
+                <div class="stat-val">Aug 2012</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Location</div>
+                <div class="stat-val">Gale Crater</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Instruments</div>
+                <div class="stat-val">10</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Power</div>
+                <div class="stat-val">Nuclear (RTG)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Robot 02: Perseverance -->
+      <article id="perseverance" class="robot-article fade-up">
+        <div class="robot-grid">
+          <div class="robot-image-box" style="order: 1;">
+            <img src="./perseverance.png" alt="The Perseverance rover on Mars" loading="lazy" />
+            <span class="robot-badge">Rover · Sample collector</span>
+          </div>
+          <div style="order: 0;">
+            <div class="robot-index">
+              <span class="robot-index-num">02</span>
+              <span class="robot-index-line"></span>
+            </div>
+            <h2 class="robot-title">Perseverance</h2>
+            <p class="robot-mantra">Keep going.</p>
+            <p class="robot-desc">
+              Perseverance searches an ancient river delta for signs of past microbial life, caching sealed tubes of Martian rock for a future return to Earth. Where the terrain gets hard, it simply keeps going.
+            </p>
+            <div class="robot-stats">
+              <div class="stat-card">
+                <div class="stat-label">Landed</div>
+                <div class="stat-val">Feb 2021</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Location</div>
+                <div class="stat-val">Jezero Crater</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Samples</div>
+                <div class="stat-val">20+ cached</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Cameras</div>
+                <div class="stat-val">23</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Robot 03: Ingenuity -->
+      <article id="ingenuity" class="robot-article fade-up">
+        <div class="robot-grid">
+          <div class="robot-image-box">
+            <img src="./ingenuity.png" alt="The Ingenuity helicopter on Mars" loading="lazy" />
+            <span class="robot-badge">Helicopter · First flight off Earth</span>
+          </div>
+          <div>
+            <div class="robot-index">
+              <span class="robot-index-num">03</span>
+              <span class="robot-index-line"></span>
+            </div>
+            <h2 class="robot-title">Ingenuity</h2>
+            <p class="robot-mantra">Be clever.</p>
+            <p class="robot-desc">
+              A four-pound helicopter that proved powered flight is possible in the thin Martian air — the first aircraft ever to fly on another world. It scouted from above, turning a wild idea into a new way to explore.
+            </p>
+            <div class="robot-stats">
+              <div class="stat-card">
+                <div class="stat-label">First flight</div>
+                <div class="stat-val">Apr 2021</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Flights</div>
+                <div class="stat-val">72</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Mass</div>
+                <div class="stat-val">1.8 kg</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Rotor</div>
+                <div class="stat-val">2,400 rpm</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Mission Section -->
+  <section id="mission" class="mission-section">
+    <div class="container">
+      <div class="fade-up">
+        <p class="section-tag">Mission status</p>
+        <h2 class="section-heading">An expedition measured in years, not days.</h2>
+      </div>
+
+      <!-- Fleet Stats -->
+      <div class="fleet-stats-grid fade-up">
+        <div class="fleet-stat-card">
+          <div class="fleet-stat-value">3</div>
+          <div class="fleet-stat-label">Robots on Mars</div>
+        </div>
+        <div class="fleet-stat-card">
+          <div class="fleet-stat-value">225M</div>
+          <div class="fleet-stat-label">km from Earth (avg)</div>
+        </div>
+        <div class="fleet-stat-card">
+          <div class="fleet-stat-value">72</div>
+          <div class="fleet-stat-label">Powered flights</div>
+        </div>
+        <div class="fleet-stat-card">
+          <div class="fleet-stat-value">20+</div>
+          <div class="fleet-stat-label">Samples cached</div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="timeline-grid fade-up">
+        <div class="timeline-card">
+          <div class="timeline-year">2012</div>
+          <h3 class="timeline-title">Curiosity touches down</h3>
+          <p class="timeline-text">The sky crane lowers a car-sized lab into Gale Crater.</p>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-year">2021</div>
+          <h3 class="timeline-title">Perseverance & Ingenuity arrive</h3>
+          <p class="timeline-text">A new rover lands in Jezero, carrying a helicopter beneath it.</p>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-year">2021</div>
+          <h3 class="timeline-title">First flight off Earth</h3>
+          <p class="timeline-text">Ingenuity lifts off — powered flight on another world.</p>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-year">Now</div>
+          <h3 class="timeline-title">Still exploring</h3>
+          <p class="timeline-text">The fleet keeps roving, drilling, and scouting the red planet.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-quote-box fade-up">
+        <p class="footer-takeaway">The takeaway</p>
+        <blockquote class="footer-quote">
+          Stay curious. Keep going. Be clever. Three small robots, one enormous reminder of what we can reach.
+        </blockquote>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-inner">
+          <a href="#top" class="brand">
+            <span class="brand-dot"></span>
+            <span>Mars / Fleet</span>
+          </a>
+
+          <div class="footer-nav">
+            <a href="#curiosity">Curiosity</a>
+            <a href="#perseverance">Perseverance</a>
+            <a href="#ingenuity">Ingenuity</a>
+            <a href="#mission">Mission</a>
+          </div>
+
+          <p class="footer-tribute">A tribute to exploration</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Header Blur & Scroll Animations -->
+  <script>
+    // Header Blur on Scroll
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 24) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // Intersection Observer for Scroll Animations
+    const fadeElems = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    fadeElems.forEach(elem => observer.observe(elem));
+  </script>
+</body>
+</html>
