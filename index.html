@@ -117,8 +117,8 @@
 
     .brand-dot {
       position: relative;
-      width: 10px;
-      height: 10px;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       background-color: var(--primary);
     }
@@ -130,19 +130,21 @@
       }
     }
 
-    nav {
+    /* Header Navigation & Actions */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    nav.desktop-nav {
       display: none;
       align-items: center;
       gap: 2rem;
     }
 
-    @media (min-width: 768px) {
-      nav {
-        display: flex;
-      }
-    }
-
-    nav a {
+    nav.desktop-nav a {
+      position: relative;
       font-family: var(--font-mono);
       font-size: 0.75rem;
       text-transform: uppercase;
@@ -150,10 +152,119 @@
       color: var(--text-muted);
       text-decoration: none;
       transition: color 0.25s ease;
+      padding: 0.25rem 0;
     }
 
-    nav a:hover {
+    nav.desktop-nav a:hover,
+    nav.desktop-nav a.active {
       color: var(--text-main);
+    }
+
+    nav.desktop-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--primary);
+      box-shadow: 0 0 8px var(--primary);
+      border-radius: 2px;
+    }
+
+    /* Mobile Menu Toggle Button */
+    .mobile-menu-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 38px;
+      height: 38px;
+      background: transparent;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 8px;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    .mobile-menu-btn:hover {
+      border-color: var(--primary);
+      background-color: rgba(224, 90, 43, 0.1);
+    }
+
+    .hamburger-line {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: var(--text-main);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .mobile-menu-btn.open .hamburger-line:nth-child(1) {
+      transform: translateY(3.5px) rotate(45deg);
+    }
+
+    .mobile-menu-btn.open .hamburger-line:nth-child(2) {
+      transform: translateY(-3.5px) rotate(-45deg);
+    }
+
+    .btn-status.desktop-only {
+      display: none;
+    }
+
+    @media (min-width: 1150px) {
+      nav.desktop-nav {
+        display: flex;
+      }
+      .mobile-menu-btn {
+        display: none;
+      }
+      .btn-status.desktop-only {
+        display: inline-flex;
+      }
+    }
+
+    /* Mobile Navigation Drawer */
+    .mobile-nav-drawer {
+      display: block;
+      max-height: 0;
+      overflow: hidden;
+      background-color: rgba(15, 10, 8, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid transparent;
+      transition: max-height 0.4s ease, border-color 0.4s ease, padding 0.4s ease;
+    }
+
+    .mobile-nav-drawer.open {
+      max-height: 320px;
+      border-bottom-color: var(--card-border);
+      padding: 1rem 0 1.5rem 0;
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      padding: 0 1.5rem;
+    }
+
+    .mobile-nav-link {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.25s ease, padding-left 0.25s ease;
+    }
+
+    .mobile-nav-link:hover,
+    .mobile-nav-link.active {
+      color: var(--primary);
+      padding-left: 0.5rem;
     }
 
     .btn-status {
@@ -169,6 +280,7 @@
       color: var(--text-main);
       text-decoration: none;
       transition: all 0.3s ease;
+      white-space: nowrap;
     }
 
     .btn-status:hover {
@@ -176,6 +288,24 @@
       border-color: var(--primary);
       color: #ffffff;
       box-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .btn-status-mobile {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 1.25rem;
+      border-radius: 9999px;
+      border: 1px solid var(--primary);
+      background-color: var(--primary);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #ffffff;
+      text-decoration: none;
+      margin-top: 0.5rem;
+      width: fit-content;
     }
 
     /* Hero Section */
@@ -324,6 +454,12 @@
       display: flex;
       width: max-content;
       animation: marquee 32s linear infinite;
+      will-change: transform;
+      user-select: none;
+    }
+
+    .marquee-section:hover .marquee-track {
+      animation-play-state: paused;
     }
 
     .marquee-group {
@@ -412,6 +548,14 @@
         grid-template-columns: 1fr 1fr;
         gap: 4rem;
       }
+
+      .robot-article.reverse .robot-grid .robot-image-box {
+        order: 2;
+      }
+
+      .robot-article.reverse .robot-grid .robot-content-box {
+        order: 1;
+      }
     }
 
     .robot-image-box {
@@ -454,7 +598,6 @@
       display: flex;
       align-items: center;
       gap: 1rem;
-
     }
 
     .robot-index-num {
@@ -512,6 +655,13 @@
     .stat-card {
       background-color: var(--card-bg);
       padding: 1rem;
+      transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card:hover {
+      background-color: rgba(35, 24, 18, 0.85);
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px var(--primary-glow);
     }
 
     .stat-label {
@@ -563,6 +713,13 @@
     .fleet-stat-card {
       background-color: var(--card-bg);
       padding: 1.75rem 1.5rem;
+      transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .fleet-stat-card:hover {
+      background-color: rgba(35, 24, 18, 0.85);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px var(--primary-glow);
     }
 
     .fleet-stat-value {
@@ -601,6 +758,13 @@
     .timeline-card {
       background-color: var(--card-bg);
       padding: 1.75rem 1.5rem;
+      transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .timeline-card:hover {
+      background-color: rgba(35, 24, 18, 0.85);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px var(--primary-glow);
     }
 
     .timeline-year {
@@ -666,21 +830,25 @@
     .footer-bottom-inner {
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 1.5rem;
+      text-align: center;
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 1300px) {
       .footer-bottom-inner {
         flex-direction: row;
-        align-items: center;
         justify-content: space-between;
+        text-align: left;
       }
     }
 
     .footer-nav {
       display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
+      flex-wrap: nowrap !important;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(0.75rem, 2vw, 1.5rem);
     }
 
     .footer-nav a {
@@ -691,10 +859,12 @@
       color: var(--text-muted);
       text-decoration: none;
       transition: color 0.25s ease;
+      white-space: nowrap !important;
     }
 
-    .footer-nav a:hover {
-      color: var(--text-main);
+    .footer-nav a:hover,
+    .footer-nav a.active {
+      color: var(--primary);
     }
 
     .footer-tribute {
@@ -703,6 +873,7 @@
       text-transform: uppercase;
       letter-spacing: 0.15em;
       color: var(--text-muted);
+      white-space: nowrap;
     }
 
     /* Fade-in scroll animations */
@@ -732,15 +903,32 @@
           <span>Mars / Fleet</span>
         </a>
 
-        <nav>
+        <nav class="desktop-nav">
           <a href="#curiosity">Curiosity</a>
           <a href="#perseverance">Perseverance</a>
           <a href="#ingenuity">Ingenuity</a>
           <a href="#mission">Mission</a>
         </nav>
 
-        <a href="#mission" class="btn-status">Live Status</a>
+        <div class="header-actions">
+          <a href="#mission" class="btn-status desktop-only">Live Status</a>
+          <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+        </div>
       </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-nav-drawer" class="mobile-nav-drawer">
+      <nav class="mobile-nav">
+        <a href="#curiosity" class="mobile-nav-link">Curiosity</a>
+        <a href="#perseverance" class="mobile-nav-link">Perseverance</a>
+        <a href="#ingenuity" class="mobile-nav-link">Ingenuity</a>
+        <a href="#mission" class="mobile-nav-link">Mission</a>
+        <a href="#mission" class="btn-status-mobile">Live Status</a>
+      </nav>
     </div>
   </header>
 
@@ -813,7 +1001,7 @@
             <img src="./curiosity.png" alt="The Curiosity rover on Mars" loading="lazy" />
             <span class="robot-badge">Rover · Car-sized laboratory</span>
           </div>
-          <div>
+          <div class="robot-content-box">
             <div class="robot-index">
               <span class="robot-index-num">01</span>
               <span class="robot-index-line"></span>
@@ -846,13 +1034,13 @@
       </article>
 
       <!-- Robot 02: Perseverance -->
-      <article id="perseverance" class="robot-article fade-up">
+      <article id="perseverance" class="robot-article reverse fade-up">
         <div class="robot-grid">
-          <div class="robot-image-box" style="order: 1;">
+          <div class="robot-image-box">
             <img src="./perseverance.png" alt="The Perseverance rover on Mars" loading="lazy" />
             <span class="robot-badge">Rover · Sample collector</span>
           </div>
-          <div style="order: 0;">
+          <div class="robot-content-box">
             <div class="robot-index">
               <span class="robot-index-num">02</span>
               <span class="robot-index-line"></span>
@@ -891,7 +1079,7 @@
             <img src="./ingenuity.png" alt="The Ingenuity helicopter on Mars" loading="lazy" />
             <span class="robot-badge">Helicopter · First flight off Earth</span>
           </div>
-          <div>
+          <div class="robot-content-box">
             <div class="robot-index">
               <span class="robot-index-num">03</span>
               <span class="robot-index-line"></span>
@@ -1013,7 +1201,7 @@
     </div>
   </footer>
 
-  <!-- JavaScript for Header Blur & Scroll Animations -->
+  <!-- JavaScript for Header Blur, Mobile Menu & Scroll Animations -->
   <script>
     // Header Blur on Scroll
     const header = document.getElementById('site-header');
@@ -1024,6 +1212,27 @@
         header.classList.remove('scrolled');
       }
     }, { passive: true });
+
+    // Mobile Menu Drawer Toggle
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileDrawer = document.getElementById('mobile-nav-drawer');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link, .btn-status-mobile');
+
+    if (mobileBtn && mobileDrawer) {
+      mobileBtn.addEventListener('click', () => {
+        const isOpen = mobileDrawer.classList.toggle('open');
+        mobileBtn.classList.toggle('open', isOpen);
+        mobileBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileDrawer.classList.remove('open');
+          mobileBtn.classList.remove('open');
+          mobileBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
 
     // Intersection Observer for Scroll Animations
     const fadeElems = document.querySelectorAll('.fade-up');
@@ -1039,6 +1248,35 @@
     });
 
     fadeElems.forEach(elem => observer.observe(elem));
+
+    // Scrollspy for Active Nav Link
+    const sections = document.querySelectorAll('section[id], article[id]');
+    const allNavLinks = document.querySelectorAll('nav a[href^="#"], .mobile-nav a[href^="#"], .footer-nav a[href^="#"]');
+
+    function updateActiveNav() {
+      let currentSectionId = '';
+      const scrollPos = window.scrollY + 140;
+
+      sections.forEach(section => {
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        if (scrollPos >= top && scrollPos < top + height) {
+          currentSectionId = section.getAttribute('id');
+        }
+      });
+
+      allNavLinks.forEach(link => {
+        const href = link.getAttribute('href').substring(1);
+        if (href === currentSectionId) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    updateActiveNav();
   </script>
 </body>
 </html>
