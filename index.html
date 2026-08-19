@@ -876,6 +876,119 @@
       white-space: nowrap;
     }
 
+    /* Video Section - 7 Minutes of Terror */
+    .video-section {
+      border-top: 1px solid var(--card-border);
+      background: radial-gradient(circle at center, rgba(224, 90, 43, 0.12) 0%, rgba(15, 10, 8, 0.95) 70%);
+      padding: 6rem 0;
+      scroll-margin-top: 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .video-section {
+        padding: 8rem 0;
+      }
+    }
+
+    .video-header {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto 3.5rem auto;
+    }
+
+    .video-header .section-heading {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 1.25rem;
+    }
+
+    .video-description {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .video-container-wrapper {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+      border-radius: 1.25rem;
+      padding: 8px;
+      background: linear-gradient(135deg, rgba(240, 220, 210, 0.15), rgba(224, 90, 43, 0.3), rgba(15, 10, 8, 0.5));
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(224, 90, 43, 0.25);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .video-container-wrapper:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 45px rgba(224, 90, 43, 0.4);
+    }
+
+    .video-player-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 0.9rem;
+      overflow: hidden;
+      background-color: #000000;
+    }
+
+    .video-player-box iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      border-radius: 1rem;
+      border: 1px solid var(--card-border);
+      background-color: var(--card-border);
+      overflow: hidden;
+      max-width: 1000px;
+      margin: 2.5rem auto 0 auto;
+    }
+
+    @media (min-width: 640px) {
+      .video-metrics-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .video-metric-card {
+      background-color: var(--card-bg);
+      padding: 1.25rem;
+      text-align: center;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .video-metric-card:hover {
+      background-color: rgba(35, 24, 18, 0.85);
+    }
+
+    .video-metric-val {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .video-metric-lbl {
+      margin-top: 0.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+    }
+
     /* Fade-in scroll animations */
     .fade-up {
       opacity: 0;
@@ -907,6 +1020,7 @@
           <a href="#curiosity">Curiosity</a>
           <a href="#perseverance">Perseverance</a>
           <a href="#ingenuity">Ingenuity</a>
+          <a href="#landing-video">7 Mins of Terror</a>
           <a href="#mission">Mission</a>
         </nav>
 
@@ -926,6 +1040,7 @@
         <a href="#curiosity" class="mobile-nav-link">Curiosity</a>
         <a href="#perseverance" class="mobile-nav-link">Perseverance</a>
         <a href="#ingenuity" class="mobile-nav-link">Ingenuity</a>
+        <a href="#landing-video" class="mobile-nav-link">7 Mins of Terror</a>
         <a href="#mission" class="mobile-nav-link">Mission</a>
         <a href="#mission" class="btn-status-mobile">Live Status</a>
       </nav>
@@ -1029,6 +1144,12 @@
                 <div class="stat-val">Nuclear (RTG)</div>
               </div>
             </div>
+            <div style="margin-top: 1.5rem;">
+              <a href="#landing-video" class="btn-status" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                Watch 7 Mins of Terror Video
+              </a>
+            </div>
           </div>
         </div>
       </article>
@@ -1114,6 +1235,56 @@
     </div>
   </section>
 
+  <!-- Video Section: 7 Minutes of Terror -->
+  <section id="landing-video" class="video-section">
+    <div class="container">
+      <div class="video-header fade-up">
+        <p class="section-tag">NASA Sky Crane Landing</p>
+        <h2 class="section-heading">7 Minutes of Terror</h2>
+        <p class="video-description">
+          From 13,000 mph to touchdown in 420 seconds. Experience NASA JPL's historic Curiosity rover descent — zero room for error, 14 light-minutes from Earth control.
+        </p>
+      </div>
+
+      <div class="video-container-wrapper fade-up">
+        <div class="video-player-box">
+          <iframe 
+            src="https://www.youtube.com/embed/Ki_Af_o9Q9s?rel=0" 
+            title="7 Minutes of Terror: Curiosity Rover Landing on Mars" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 1rem;" class="fade-up">
+        <a href="https://www.youtube.com/watch?v=Ki_Af_o9Q9s" target="_blank" rel="noopener noreferrer" class="btn-status" style="font-size: 0.65rem; padding: 0.4rem 1rem;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.3rem;"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+          Open directly on YouTube
+        </a>
+      </div>
+
+      <div class="video-metrics-grid fade-up">
+        <div class="video-metric-card">
+          <div class="video-metric-val">13,000 MPH</div>
+          <div class="video-metric-lbl">Atmospheric Entry</div>
+        </div>
+        <div class="video-metric-card">
+          <div class="video-metric-val">1,600 °C</div>
+          <div class="video-metric-lbl">Heat Shield Temp</div>
+        </div>
+        <div class="video-metric-card">
+          <div class="video-metric-val">14 MINS</div>
+          <div class="video-metric-lbl">Earth Signal Delay</div>
+        </div>
+        <div class="video-metric-card">
+          <div class="video-metric-val">SKY CRANE</div>
+          <div class="video-metric-lbl">Rocket Descent</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Mission Section -->
   <section id="mission" class="mission-section">
     <div class="container">
@@ -1192,6 +1363,7 @@
             <a href="#curiosity">Curiosity</a>
             <a href="#perseverance">Perseverance</a>
             <a href="#ingenuity">Ingenuity</a>
+            <a href="#landing-video">7 Mins of Terror</a>
             <a href="#mission">Mission</a>
           </div>
 
